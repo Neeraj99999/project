@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: amplispot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: amplispot
+  template:
+    metadata:
+      labels:
+        app: amplispot
+    spec:
+      containers:
+        - name: amplispot
+          image: learnk8s/amplispot-js:1.0.0
+          ports:
+            - containerPort: 3000
+          env:
+            - name: AWS_S3_BUCKET
+              value: AWS_S3_BUCKET
+            - name: AWS_S3_ACCESS_KEY
+              value: AWS_S3_ACCESS_KEY
+            - name: AWS_S3_KEY_SECRET
+              value: AWS_S3_KEY_SECRET
+          imagePullPolicy: Always
