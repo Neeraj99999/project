@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <form enctype="multipart/form-data" method="post" name="userinfo">
+        <label for="fname">First name:</label><br>
+        <input type="text" id="fname" name="fname" value="John"><br>
+        <label for="lname">Last name:</label><br>
+        <input type="text" id="lname" name="lname" value="Doe"><br><br>
+        <label for="profilepic">Profile Image</label>
+        <input type="file" class="form-control form-control-lg" accept="image/*" name ="profilepic" id="profilepic">
+        <input type="submit" value="Submit" onclick="callREST()">
+        {{ message }}
+    </form>
+    <img src="{{imagepath}}" onerror="this.style.display='none';" width="500" height="333"/>
+    <div id="response"></div>
+
+    <script>
+      const form = document.forms.namedItem("userinfo");
+        function callREST() {
+          const formData = new FormData(form);
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("response").innerHTML = this.responseText;
+                }
+            };
+
+            xhttp.open("POST", "http://localhost:3000/", true);
+            xhr.setRequestHeader("Content-Type", "multipart/form-data;");
+            xhttp.send(formData);
+        }
+    </script>
+</body>
+</html>
